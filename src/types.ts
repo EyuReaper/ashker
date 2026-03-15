@@ -6,6 +6,11 @@
  */
 export interface ActivityLogs {
   [date: string]: {
-    [appName: string]: number;
+        [appName: string]: number;
+      
   };
 }
+export interface AppCategory {
+  name: string;
+  category: string;
+}   

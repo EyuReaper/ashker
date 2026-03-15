@@ -32,6 +32,9 @@ function createWindow() {
     },
   })
 
+  // Remove the native application menu for a cleaner look
+  win.setMenu(null);
+
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())
   })
@@ -70,6 +73,16 @@ async function trackActiveWindow() {
 // IPC Handlers
 ipcMain.handle('get-logs', () => {
   return store.get('logs') || {}
+})
+
+ipcMain.handle('get-categories', () => {
+  return store.get('categories') || {}
+})
+
+ipcMain.handle('set-category', (_, appName: string, category: string) => {
+  const categories = (store.get('categories') as Record<string, string>) || {}
+  categories[appName] = category
+  store.set('categories', categories)
 })
 
 app.on('window-all-closed', () => {

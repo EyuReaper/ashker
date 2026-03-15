@@ -25,5 +25,7 @@ declare namespace NodeJS {
 interface Window {
   ipcRenderer: import('electron').IpcRenderer & {
     getLogs: () => Promise<import('../src/types').ActivityLogs>;
+    getCategories: () => Promise<import('../src/types').AppCategories>;
+    setCategory: (appName: string, category: 'productive' | 'distraction' | 'neutral') => Promise<void>;
   }
 }

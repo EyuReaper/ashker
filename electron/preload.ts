@@ -1,4 +1,4 @@
-import { ipcRenderer, contextBridge } from 'electron'
+import { ipcRenderer, ipcMain, contextBridge } from 'electron'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -20,4 +20,9 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
   },
 
   getLogs: () => ipcRenderer.invoke('get-logs'),
-})
+
+  getCategories: () => ipcRenderer.invoke('get-categories'),
+  setCategory: (appName: string, category: string) => ipcRenderer.invoke('set-category', appName, category),
+});
+
+
